@@ -7,6 +7,11 @@ import com.juziku.android.io.FileUtil;
 import android.content.Context;
 import android.util.Log;
 
+/**
+ * 
+ * @author steven
+ *
+ */
 public class DownLoadUtil {
 	private static final String TAG = DownLoadUtil.class.getSimpleName();
 	
