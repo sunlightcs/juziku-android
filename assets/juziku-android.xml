@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">  
+<properties>  
+	<comment>juziku-android 配置信息</comment>
+	<!-- 配置数据库名 -->
+	<entry key="database_name">my_database</entry>
+	
+	<!-- 配置数据库版本号   只能为整形 -->
+	<entry key="database_version">3</entry>
+	
+	<!-- 数据库更新策略  true：全部删除后再增加   false：只更新增加的表或列  默认为false -->
+	<entry key="database_update_strategy">true</entry>
+	
+	<!-- 配置实体类，对应数据库中的表   多个实体类用;隔开 -->
+	<entry key="models">
+	    com.juziku.android.test.User;
+	</entry> 
+	
+</properties>
