@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 
 import com.juziku.android.http.DownLoadUtil;
@@ -40,24 +41,31 @@ public class AsyncImageLoader {
 			return drawable;
 		}
 
-		final Handler handler = new Handler() {
-			public void handleMessage(Message message) {
-				imageCallback.imageLoaded((Drawable) message.obj);
+		class ImageHandler extends Handler{ 
+			public ImageHandler(Looper looper){
+	            super(looper);
+	        }
+			@Override
+			public void handleMessage(Message msg) {
+				imageCallback.imageLoaded((Drawable) msg.obj);
 			}
-		};
-
-		new Thread() {
+		}
+		
+		new Thread(new Runnable() {
 			public void run() {
 				InputStream is = DownLoadUtil.inputStreamFromURL(context, imageUrl);
-				if(is != null)
-					FileUtil.saveFile(imageFolder, fileName, is);
-				
-				Drawable drawable = Drawable.createFromStream(is, "src");
-				Message message = handler.obtainMessage(0, drawable);
-				handler.sendMessage(message);
+				String path = null;
+				if(is != null){
+					path = SDCardUtil.saveFileToSDCard(imageFolder, fileName, is);
+					
+					Bitmap bitmap = BitmapFactory.decodeFile(path);
+					Drawable drawable = new BitmapDrawable(bitmap);
+					ImageHandler imageHandler = new ImageHandler(Looper.getMainLooper());
+					Message message = imageHandler.obtainMessage(0, drawable);
+					imageHandler.sendMessage(message);
+				}
 			}
-		}.start();
-		
+		}).start();
 		return null;
 	}
 

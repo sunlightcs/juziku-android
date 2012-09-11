@@ -15,7 +15,6 @@ import android.util.Log;
 
 /**
  * 文件处理类
- * @author Administrator
  *
  */
 public class FileUtil {
@@ -56,22 +55,22 @@ public class FileUtil {
 	 * @param directory 目录
 	 * @param fileName  文件名
 	 * @param content   字节
-	 * @return          true:表示保存成功    false:表示保存失败
+	 * @return          保存的路径
 	 */
-	public static boolean saveFile(String directory, String fileName, byte[] content){
-		boolean flag = false;
+	public static String saveFile(String directory, String fileName, byte[] content){
+		String result = null;
 		OutputStream os = null;
 		try {
 			//目录如果不存在，则创建
 			File file = new File(directory);
 			if (!file.exists()) {
-				file.getParentFile().mkdirs();
+				file.mkdirs();
 			}
 			
-			os = new BufferedOutputStream(new FileOutputStream(	directory + File.separator + fileName));
+			os = new BufferedOutputStream(new FileOutputStream(directory + File.separator + fileName));
 			os.write(content);
 			
-			flag = true;
+			result = directory + File.separator + fileName;
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		} finally {
@@ -83,7 +82,7 @@ public class FileUtil {
 				}
 			}
 		}
-		return flag;
+		return result;
 	}
 	
 	/**
@@ -91,9 +90,9 @@ public class FileUtil {
 	 * @param directory 目录
 	 * @param fileName  文件名
 	 * @param is        输入流
-	 * @return          true:表示保存成功    false:表示保存失败
+	 * @return          保存的路径
 	 */
-	public static boolean saveFile(String directory, String fileName, InputStream is){
+	public static String saveFile(String directory, String fileName, InputStream is){
 		return saveFile(directory, fileName, readInputStream(is));
 	}
 	

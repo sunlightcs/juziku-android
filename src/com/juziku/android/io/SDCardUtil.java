@@ -34,15 +34,17 @@ public class SDCardUtil {
 	 * @param directory   目录
 	 * @param fileName    文件名
 	 * @param content     字节
-	 * @return            true:保存成功   false:保存失败
+	 * @return            保存的路径
 	 */
-	public static boolean saveFileToSDCard(String directory, String fileName,
+	public static String saveFileToSDCard(String directory, String fileName,
 			byte[] content) {
-		String path = SD_PATH + File.separator + directory;
+		StringBuilder path = new StringBuilder();
+		if(isSDCardExisted()){
+			path.append(SD_PATH);
+		}
+		path.append(File.separator).append(directory);
 		
-		boolean flag = FileUtil.saveFile(path, fileName, content);
-		
-		return flag;
+		return  FileUtil.saveFile(path.toString(), fileName, content);
 	}
 	
 	
@@ -52,14 +54,16 @@ public class SDCardUtil {
 	 * @param directory   目录
 	 * @param fileName    文件名
 	 * @param is          输入流
-	 * @return            true:保存成功   false:保存失败
+	 * @return            保存的路径
 	 */
-	public static boolean saveFileToSDCard(String directory, String fileName,
+	public static String saveFileToSDCard(String directory, String fileName,
 			InputStream is) {
-		String path = SD_PATH + File.separator + directory;
+		StringBuilder path = new StringBuilder();
+		if(isSDCardExisted()){
+			path.append(SD_PATH);
+		}
+		path.append(File.separator).append(directory);
 		
-		boolean flag = FileUtil.saveFile(path, fileName, is);
-		
-		return flag;
+		return FileUtil.saveFile(path.toString(), fileName, is);
 	}
 }

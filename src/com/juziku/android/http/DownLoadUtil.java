@@ -1,6 +1,7 @@
 package com.juziku.android.http;
 
 import java.io.InputStream;
+import java.net.URL;
 
 import com.juziku.android.io.FileUtil;
 
@@ -18,7 +19,8 @@ public class DownLoadUtil {
 	public static InputStream inputStreamFromURL(Context context, String url) {
 		InputStream is = null;
 		try {
-			is = context.getAssets().open(url);
+			URL imageUrl = new URL(url);
+			is = imageUrl.openStream();
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
 		}
@@ -29,7 +31,7 @@ public class DownLoadUtil {
 	public static byte[] byteFromURL(Context context, String url) {
 		byte[] b = null;
 		try {
-			InputStream is = context.getAssets().open(url);
+			InputStream is = inputStreamFromURL(context, url);
 			b = FileUtil.readInputStream(is);
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
@@ -42,7 +44,7 @@ public class DownLoadUtil {
 	public static String stringFromURL(Context context, String url) {
 		String str = null;
 		try {
-			InputStream is = context.getAssets().open(url);
+			InputStream is = inputStreamFromURL(context, url);
 			str = FileUtil.inputStreamToString(is);
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
