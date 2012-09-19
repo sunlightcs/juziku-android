@@ -25,7 +25,7 @@ public class DBConfig {
 	
 	
 	public DBConfig(Context context){
-		Properties properties = ConfigUtils.getConfigFile(context);
+		Properties properties = ConfigUtils.getConfigFile(context, "juziku-android.xml");
 		DATABASE_NAME = properties.getProperty("database_name");
 		String version = properties.getProperty("database_version");
 		if(StringUtils.isNotEmpty(version))

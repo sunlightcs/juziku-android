@@ -3,7 +3,6 @@ package com.juziku.android.json;
 import java.io.InputStream;
 import java.util.List;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -25,11 +24,11 @@ public class JsonParse {
 	 * @param url      url地址
 	 * @return         返回List列表
 	 */
-	public static List<?> getListFromNetwork(Class<?> clazz, Context context, String url) {
+	public static List<?> getListFromNetwork(Class<?> clazz, String url) {
 		List<?> list = null;
 
 		try {
-			String json = DownLoadUtil.stringFromURL(context, url);
+			String json = DownLoadUtil.stringFromURL(url);
 			list = JSON.parseArray(json, clazz);
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
@@ -46,7 +45,7 @@ public class JsonParse {
 	 * @param url      url地址
 	 * @return         返回List列表
 	 */
-	public static List<?> getListFromInputStream(Class<?> clazz, Context context, InputStream is) {
+	public static List<?> getListFromInputStream(Class<?> clazz, InputStream is) {
 		List<?> list = null;
 		try {
 			String json = FileUtil.inputStreamToString(is);
@@ -69,11 +68,11 @@ public class JsonParse {
 	 * 
 	 * @return 返回Object
 	 */
-	public static Object getObjectFromNetwork(Class<?> clazz, Context context, String url) {
+	public static Object getObjectFromNetwork(Class<?> clazz, String url) {
 		Object object = null;
 		
 		try {
-			String json = DownLoadUtil.stringFromURL(context, url);
+			String json = DownLoadUtil.stringFromURL(url);
 			object = JSON.parseObject(json, clazz);
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
@@ -91,7 +90,7 @@ public class JsonParse {
 	 * 
 	 * @return 返回Object
 	 */
-	public static Object getObjectFromInputStream(Class<?> clazz, Context context, InputStream is) {
+	public static Object getObjectFromInputStream(Class<?> clazz, InputStream is) {
 		Object object = null;
 		
 		try {

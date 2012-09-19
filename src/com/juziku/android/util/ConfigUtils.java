@@ -15,11 +15,11 @@ import android.util.Log;
 public class ConfigUtils {
 	private static final String TAG = ConfigUtils.class.getSimpleName();
 
-	public static Properties getConfigFile(Context context){
+	public static Properties getConfigFile(Context context, String fileName){
 		InputStream is = null;
 		Properties prop = null;
 		try {
-			is = context.getAssets().open("juziku-android.xml");
+			is = context.getAssets().open(fileName);
 			prop = new Properties();
 			prop.loadFromXML(is);
 		} catch (IOException e) {

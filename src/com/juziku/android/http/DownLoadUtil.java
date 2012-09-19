@@ -3,10 +3,9 @@ package com.juziku.android.http;
 import java.io.InputStream;
 import java.net.URL;
 
-import com.juziku.android.io.FileUtil;
-
-import android.content.Context;
 import android.util.Log;
+
+import com.juziku.android.io.FileUtil;
 
 /**
  * 
@@ -16,7 +15,7 @@ import android.util.Log;
 public class DownLoadUtil {
 	private static final String TAG = DownLoadUtil.class.getSimpleName();
 	
-	public static InputStream inputStreamFromURL(Context context, String url) {
+	public static InputStream inputStreamFromURL(String url) {
 		InputStream is = null;
 		try {
 			URL imageUrl = new URL(url);
@@ -28,10 +27,10 @@ public class DownLoadUtil {
 	}
 	
 	
-	public static byte[] byteFromURL(Context context, String url) {
+	public static byte[] byteFromURL(String url) {
 		byte[] b = null;
 		try {
-			InputStream is = inputStreamFromURL(context, url);
+			InputStream is = inputStreamFromURL(url);
 			b = FileUtil.readInputStream(is);
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
@@ -41,10 +40,10 @@ public class DownLoadUtil {
 	
 	
 	
-	public static String stringFromURL(Context context, String url) {
+	public static String stringFromURL(String url) {
 		String str = null;
 		try {
-			InputStream is = inputStreamFromURL(context, url);
+			InputStream is = inputStreamFromURL(url);
 			str = FileUtil.inputStreamToString(is);
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
