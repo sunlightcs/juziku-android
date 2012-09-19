@@ -21,7 +21,7 @@ public class DownLoadUtil {
 			URL imageUrl = new URL(url);
 			is = imageUrl.openStream();
 		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "URL地址不存在，请检查URL地址。  " + e.getMessage());
 		}
 		return is;
 	}

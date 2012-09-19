@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.channels.FileChannel;
 
+import com.juziku.android.http.DownLoadUtil;
+
 import android.util.Log;
 
 /**
@@ -36,6 +38,7 @@ public class FileUtil {
 			out = new FileOutputStream(targetName).getChannel();
 			
 			result = in.transferTo(0, in.size(), out);
+			
 		} catch (IOException e) {
 			Log.e(TAG, e.getMessage());
 		}finally{
@@ -69,7 +72,7 @@ public class FileUtil {
 			
 			os = new BufferedOutputStream(new FileOutputStream(directory + File.separator + fileName));
 			os.write(content);
-			
+			os.flush();
 			result = directory + File.separator + fileName;
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage(), e);
@@ -93,7 +96,26 @@ public class FileUtil {
 	 * @return          保存的路径
 	 */
 	public static String saveFile(String directory, String fileName, InputStream is){
+		if(is == null)
+			return null;
 		return saveFile(directory, fileName, readInputStream(is));
+	}
+	
+	/**
+	 * 保存文件
+	 * @param directory 目录
+	 * @param url       地址
+	 * @return          保存的路径
+	 */
+	public static String saveFile(String directory, String url){
+		String fileName = url.substring(url.lastIndexOf("/") + 1);
+		//判断文件是否存在，如果存在，则不下载
+		String filePath = directory + File.separator + fileName;
+		File file = new File(filePath);
+		if(file.exists()){
+			return filePath;
+		}
+		return saveFile(directory, fileName, DownLoadUtil.inputStreamFromURL(url));
 	}
 	
 	

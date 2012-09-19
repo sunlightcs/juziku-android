@@ -66,4 +66,22 @@ public class SDCardUtil {
 		
 		return FileUtil.saveFile(path.toString(), fileName, is);
 	}
+	
+	
+	/**
+	 * 保存文件到SD
+	 * 
+	 * @param directory   目录
+	 * @param url         地址
+	 * @return            保存的路径
+	 */
+	public static String saveFileToSDCard(String directory, String url) {
+		StringBuilder path = new StringBuilder();
+		if(isSDCardExisted()){
+			path.append(SD_PATH);
+		}
+		path.append(File.separator).append(directory);
+		
+		return FileUtil.saveFile(path.toString(), url);
+	}
 }
